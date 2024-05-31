@@ -195,3 +195,249 @@ print (df_input['Stock levels'].describe());
 
 # Draw the box plot distribution
 sns.boxplot(data=df_input, x="Stock levels").set_title("Stock levels - distribution");
+
+# In[30]:
+
+
+# 8. lead times
+
+
+# In[31]:
+
+
+print (df_input['Lead times'].describe());
+sns.boxplot(data=df_input, x='Lead times').set_title('Lead times - distribution');
+
+
+# In[32]:
+
+
+# 9. order quantities
+
+
+# In[33]:
+
+
+print (df_input['Order quantities'].describe());
+sns.boxplot(data=df_input, x='Order quantities').set_title("Order quantities - distribution");
+
+
+# In[34]:
+
+
+# 10. shipping times
+
+
+# In[35]:
+
+
+print(df_input['Shipping times'].describe());
+sns.boxplot(data=df_input, x="Shipping times").set_title("Shipping times -distribution");
+
+
+# In[36]:
+
+
+# 11. shipping carriers
+
+
+# In[37]:
+
+
+# Draw pie chart
+carrier_labels = df_input['Shipping carriers'].value_counts().index.to_list()
+plt.pie(df_input['Shipping carriers'].value_counts(), labels=carrier_labels, autopct="%.2f%%");
+plt.title('Shipping carriers - distribution');
+
+
+# In[38]:
+
+
+# 12. shipping costs
+
+
+# In[39]:
+
+
+print (df_input['Shipping costs'].describe())
+sns.boxplot(data=df_input, x="Shipping costs").set_title ("Shipping costs - distribution");
+
+
+# In[40]:
+
+
+# 13. supplier name
+
+
+# In[41]:
+
+
+supplier_labels = df_input['Supplier name'].value_counts().index.to_list();
+plt.pie(df_input['Supplier name'].value_counts(), labels=supplier_labels, autopct="%.2f%%");
+plt.title('Supplier name - distribution');
+
+
+# In[42]:
+
+
+# 14. location
+
+
+# In[43]:
+
+
+location_labels = df_input['Location'].value_counts().index.to_list()
+plt.pie(df_input['Location'].value_counts(), labels=location_labels, autopct="%.2f%%");
+plt.title ("Location - distribution");
+
+
+# In[44]:
+
+
+# 15 lead time
+
+
+# In[45]:
+
+
+print (df_input['Lead time'].describe());
+# Draw box plot
+df_input['Lead time'].describe()
+sns.boxplot(data=df_input, x="Lead time").set_title('Lead time - distribution');
+
+
+# In[46]:
+
+
+# 16. production volumes
+
+
+# In[47]:
+
+
+print (df_input['Production volumes'].describe());
+
+# Draw boxplot
+sns.boxplot(data=df_input, x="Production volumes").set_title("Production volumes distribution");
+
+
+# In[48]:
+
+
+# 17. manufacturing lead time
+
+
+# In[49]:
+
+
+print (df_input['Manufacturing lead time'].describe());
+
+# Draw the boxplot
+sns.boxplot(data=df_input, x="Manufacturing lead time").set_title("Manufacturing lead time  - distribution");
+
+
+# In[50]:
+
+
+# 18. manufacturing costs
+
+
+# In[51]:
+
+
+print (df_input['Manufacturing costs'].describe());
+
+# Draw box plot
+sns.boxplot(data=df_input, x="Manufacturing costs").set_title("Manufacturing costs - distribution");
+
+
+# In[52]:
+
+
+# 19. inspection results
+
+
+# In[53]:
+
+
+inspection_results_labels=df_input['Inspection results'].value_counts().index.to_list()
+
+# Draw Pie chart
+plt.pie(df_input['Inspection results'].value_counts(), labels=inspection_results_labels, autopct="%.2f%%");
+plt.title("Inspection results - distribution");
+
+
+# In[54]:
+
+
+# 20. defect rates
+
+
+# In[55]:
+
+
+print(df_input['Defect rates'].describe());
+
+# Draw box plot
+sns.boxplot(data=df_input, x="Defect rates").set_title("Defect rates - distribution");
+
+
+# In[56]:
+
+
+# 21. transportation modes
+
+
+# In[57]:
+
+
+transportation_modes_labels=df_input['Transportation modes'].value_counts().index.to_list();
+
+plt.pie(df_input['Transportation modes'].value_counts(), labels=transportation_modes_labels, autopct="%1.1f%%");
+plt.title("Transportation modes - distribution");
+
+
+# In[58]:
+
+
+# 22. routes
+
+
+# In[59]:
+
+
+route_labels = df_input['Routes'].value_counts().index.to_list()
+
+#Draw pie
+plt.pie(df_input['Routes'].value_counts(), labels=route_labels, autopct="%1.1f%%");
+plt.title("Routes - distribution");
+
+
+# In[60]:
+
+
+# 23. costs
+
+
+# In[61]:
+
+
+print(df_input['Costs'].describe());
+
+# Draw the boxplot
+sns.boxplot(data=df_input, x="Costs").set_title("Costs - distribution");
+
+
+# In[62]:
+
+
+# 24. price
+
+
+# In[63]:
+
+
+print(df_input['Price'].describe());
+
+# Draw boxplot
+sns.boxplot(data=df_input, x="Price").set_title("Price - distribution");
