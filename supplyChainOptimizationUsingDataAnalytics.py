@@ -441,3 +441,180 @@ print(df_input['Price'].describe());
 
 # Draw boxplot
 sns.boxplot(data=df_input, x="Price").set_title("Price - distribution");
+
+
+# In[64]:
+
+
+#DEMAND FORECASTING
+
+
+# In[65]:
+
+
+# 1. products having high demand
+
+
+# In[66]:
+
+
+# Observations having high number of 'sold products'
+df_input[["Product type","SKU","Number of products sold","Location"]].sort_values("Number of products sold", ascending=False).head(5)
+
+
+# In[67]:
+
+
+# 2. products having low demand
+
+
+# In[68]:
+
+
+# Observations having lowest number of 'sold products'
+df_input[["Product type","SKU","Number of products sold"]].sort_values("Number of products sold").head(5)
+
+
+# In[69]:
+
+
+#LOCATION RANKING BASED ON 'PRODUCT SELLING'
+
+
+# In[70]:
+
+
+# Extract required fields to seperate data frame
+df_loc_product_sell = df_input[["Location", "Number of products sold"]].copy()
+
+#Group by location and include sum for each location groups
+df_loc_product_sell=df_loc_product_sell.groupby('Location').sum()
+
+# Rename the sum field
+df_loc_product_sell.rename(columns={'Number of products sold':"SoldProducts"}, inplace=True)
+
+# Sort the rows based on the sum of Sold products
+df_loc_product_sell.sort_values(by="SoldProducts",ascending=False, inplace=True)
+
+
+# In[71]:
+
+
+# Draw the bar graph
+plt.bar(df_loc_product_sell.index, df_loc_product_sell['SoldProducts']);
+plt.title("Location vs Total products sold");
+
+
+# In[72]:
+
+
+#AVERAGE SALES OF EACH PRODUCT TYPE PER LOCATION
+
+
+# In[73]:
+
+
+# Create seperate data frame with product type, number of products sold and location
+df_product_type_location = df_input[["Product type","Location", "Number of products sold"]].copy()
+
+# Find the mean value of 'Number of Products sold'
+df_product_type_location = df_product_type_location.groupby(["Location","Product type"]).mean()
+
+# Rename the mean value column
+df_product_type_location.rename({"Number of products sold":"Products sold - average"},axis = 1, inplace=True)
+
+# Reset the index
+df_product_type_location.reset_index(inplace=True)
+
+#Draw the bar graph
+sns.barplot(data=df_product_type_location,
+            x="Location",
+            y="Products sold - average",
+            hue="Product type");
+
+
+# In[74]:
+
+
+#PRODUCT TYPES HAVING MORE DEFECT RATES
+
+
+# In[75]:
+
+
+df_product_type_defect= df_input[['Product type','Defect rates']].copy()
+
+#Group by product types
+df_product_type_defect = df_product_type_defect.groupby('Product type').mean()
+
+# Rename the Defect rates column
+df_product_type_defect.rename(columns={'Defect rates':'Average defect rates'}, inplace=True)
+
+# Sort the Average defect rates column
+df_product_type_defect.sort_values(by="Average defect rates", ascending=False, inplace=True)
+
+
+# In[76]:
+
+
+# Plot the line graph
+plt.plot(df_product_type_defect);
+plt.title("Average defect rates per the product types");
+
+
+# In[77]:
+
+
+#TRANSPORATION COST
+
+
+# In[78]:
+
+
+# Create a seperate data frame for Transportation cost analysis
+df_transport_cost = df_input[["Product type", "Transportation modes", "Costs"]].copy()
+
+# Segregate records based on the Transportation modes and find mean of each group
+df_transport_cost = df_transport_cost.groupby('Transportation modes').mean('Costs')
+
+# rename the mean field
+df_transport_cost.rename(columns={"Costs":"Avg Costs"}, inplace=True)
+
+#Sort the records based on the mean cost value
+df_transport_cost.sort_values(by="Avg Costs",ascending=False, inplace=True)
+
+
+# In[79]:
+
+
+# Visualize the average values of each transportation
+plt.plot(df_transport_cost);
+plt.title ("Average costs of transportation modes");
+
+
+# In[80]:
+
+
+#LEAD TIMES OF EACH PRODUCT TYPE PER SUPPLIER
+
+
+# In[81]:
+
+
+# Create new data frame
+df_supplier_product_type = df_input[['Product type', 'Supplier name', 'Lead time']].copy()
+
+# Group the columns based on the supplier name , product type and find the mean of 'lead time' of each sub group.
+df_supplier_product_type = df_supplier_product_type.groupby(['Supplier name', 'Product type']).mean('Lead time')
+
+# Rename the mean column of Lead time
+df_supplier_product_type.rename(columns={'Lead time':'Avg Lead time'}, inplace=True)
+
+#Reset the index
+df_supplier_product_type.reset_index(inplace=True);
+
+#Draw the bar graph
+sns.barplot(data=df_supplier_product_type,
+            x="Supplier name",
+            y="Avg Lead time",
+            hue="Product type"). set_title("Average Lead time of suppliers");
